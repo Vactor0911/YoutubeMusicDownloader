@@ -5,8 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YoutubeMusicDownloader"
         mc:Ignorable="d"
-        Title="Youtube Music Downloader" Height="450" Width="800" Background="#F0F0F0">
-    <StackPanel Orientation="Vertical" Margin="15">
-        <Label Content="Save to"/>
+        Title="Youtube Music Downloader" Height="500" Width="800" Background="#F0F0F0" ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical" Margin="15, 10, 15, 10">
+
+        <Label Content="Youtube URL" FontWeight="Bold"/>
+
+        <Grid Height="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="67*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="tbUrl" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+            <Button x:Name="btnSearch" Grid.Column="2" Content="Search" FontWeight="Bold" Click="btnSearch_Click"/>
+        </Grid>
+
+        <Separator Visibility="Hidden" Height="15"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Orientation="Vertical">
+                <Label Content="Thumbnail" FontWeight="Bold"/>
+                <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="2" Height="250" Margin="0, 0, 5, 0">
+                    <Image x:Name="imgThumbnail" Source="download.png" Stretch="Uniform" MouseDown="imgThumbnail_MouseDown"/>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5, 0, 0, 0">
+                <Label x:Name="lblVideoTitle" Content="No video found!" FontWeight="Bold"/>
+                <Label x:Name="lblVideoDuration" Content="Duration : 00:00:00"/>
+
+                <Separator Height="10"/>
+
+                <Label Content="Title" FontWeight="Bold"/>
+                <TextBox x:Name="tbTitle" Height="25" VerticalContentAlignment="Center"/>
+                <Label Content="Author" FontWeight="Bold"/>
+                <TextBox x:Name="tbAuthor" Height="25" VerticalContentAlignment="Center"/>
+
+                <ProgressBar/>
+            </StackPanel>
+        </Grid>
+
+        <Separator Visibility="Hidden" Height="30"/>
+
+        <Button x:Name="btnDownload" Content="Download" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Width="200" Height="35" Background="LimeGreen" Click="btnDownload_Click"/>
+
     </StackPanel>
 </Window>
