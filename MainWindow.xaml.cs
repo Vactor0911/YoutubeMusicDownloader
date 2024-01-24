@@ -23,6 +23,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Net.Http;
 using YoutubeExplode.Videos.Streams;
+using YoutubeExplode.Common;
 
 namespace YoutubeMusicDownloader
 {
@@ -40,6 +41,7 @@ namespace YoutubeMusicDownloader
             InitializeComponent();
             tbTitle.IsEnabled = false;
             tbAuthor.IsEnabled = false;
+            btnDownload.IsEnabled = false;
         }
 
         public void Error(string Message)
@@ -70,6 +72,10 @@ namespace YoutubeMusicDownloader
                 imgThumbnail.Source = new BitmapImage( new Uri(thumbnail) );
 
                 //Initialize textbox
+                tbTitle.IsEnabled = true;
+                tbAuthor.IsEnabled = true;
+                btnDownload.IsEnabled = true;
+
                 if ( !title.Contains("-") )
                 {
                     tbTitle.Text = title;
@@ -87,8 +93,6 @@ namespace YoutubeMusicDownloader
                 {
                     tbTitle.Text = aryTitle[1].Trim();
                     tbAuthor.Text = aryTitle[0].Trim();
-                    tbTitle.IsEnabled = true;
-                    tbAuthor.IsEnabled = true;
                 }
             }
             catch (Exception)
@@ -124,17 +128,23 @@ namespace YoutubeMusicDownloader
             if (saveFileDialog.ShowDialog() == true && saveFileDialog.FileName != string.Empty)
             {
                 savePath = saveFileDialog.FileName;
-                //File.Create(savePath);
-
                 var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
                 var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
                 await youtube.Videos.Streams.DownloadAsync(streamInfo, savePath);
-
                 MessageBox.Show("Successfully downloaded music!");
             }
 
             //Save file
             
+        }
+
+        private void btnImageReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (video == null)
+                return;
+
+            var thumbnail = video.Thumbnails.FirstOrDefault()?.Url;
+            imgThumbnail.Source = new BitmapImage( new Uri(thumbnail) );
         }
     }
 }

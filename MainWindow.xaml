@@ -30,7 +30,11 @@
 
 
             <StackPanel Orientation="Vertical">
-                <Label Content="Thumbnail" FontWeight="Bold"/>
+                <Grid>
+                    <Label Content="Thumbnail" FontWeight="Bold"/>
+                    <Button x:Name="btnImageReset" Content="Reset" Width="60" FontWeight="Bold" HorizontalAlignment="Right" Margin="5" Click="btnImageReset_Click"/>
+                </Grid>
+                    
                 <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="2" Height="250" Margin="0, 0, 5, 0">
                     <Image x:Name="imgThumbnail" Source="download.png" Stretch="Uniform" MouseDown="imgThumbnail_MouseDown"/>
                 </Border>
