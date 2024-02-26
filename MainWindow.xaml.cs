@@ -17,7 +17,6 @@ using MediaToolkit;
 using System.Net;
 using YoutubeExplode.Videos;
 using YoutubeExplode.Converter;
-using static MediaToolkit.Model.Metadata;
 using Microsoft.Win32;
 using System.IO;
 using System.Security.Cryptography;
@@ -128,9 +127,7 @@ namespace YoutubeMusicDownloader
             if (saveFileDialog.ShowDialog() == true && saveFileDialog.FileName != string.Empty)
             {
                 savePath = saveFileDialog.FileName;
-                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
-                var streamInfo = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
-                await youtube.Videos.Streams.DownloadAsync(streamInfo, savePath);
+                await youtube.Videos.DownloadAsync(video.Id, savePath);
                 MessageBox.Show("Successfully downloaded music!");
             }
 
